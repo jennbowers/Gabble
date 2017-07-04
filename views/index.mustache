@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to Gabble</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Gabble</a>
+        <a href="/gab">Create a Gab</a>
+        <a href="#">Logged in as {{sessionName}}</a>
+        <a href="/welcome">Sign Out</a>
+      </nav>
+    </header>
+    <h1>Hello!</h1>
+    {{#model}}
+    <div id="{{id}}" class="gab">
+      <p>{{users.username}}</p>
+      <p>{{message}}</p>
+      <a href="/{{id}}">{{numberLikes}} Likes</a>
+      <span>
+        <form class="" action="/{{id}}" method="post">
+          <input type="hidden" name="{{id}}" value="{{id}}">
+          <input type="submit" name="like" value="Like">
+        </form>
+      </span>
+    </div>
+    {{/model}}
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Gabble</a>
+        <a href="/gab">Create a Gab</a>
+        <a href="#">Logged in as {{sessionName}}</a>
+        <a href="/welcome">Sign Out</a>
+      </nav>
+    </header>
+    <h1>Create a Gab</h1>
+    <form class="create-gab" action="/gab" method="post">
+      <input type="textarea" name="message" placeholder="Whatcha Want to Gab About?">
+      <input type="submit" name="post-gab" value="Gab About It">
+    </form>
+  </body>
+</html>
