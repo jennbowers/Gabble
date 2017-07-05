@@ -58,7 +58,7 @@ app.get('/welcome', welcomeController.renderWelcome);
 app.get('/gab', backToLogin, gabController.renderGab);
 
 // get and render the page with a gab that shows all it's likes
-app.get('/likes', backToLogin, likesController.renderLikes);
+app.get('/likes/:id', backToLogin, likesController.renderGabLikes);
 
 // post and sign up and send user info to database
 app.post('/signup', welcomeController.signupWelcome);
@@ -68,6 +68,9 @@ app.post('/signin', welcomeController.signinWelcome);
 
 // post and like a gab
 app.post('/:id', backToLogin, indexController.clickLikeIndex);
+
+// post and delete gab if you are the user who posted it
+app.post('/delete/:id', backToLogin, indexController.deleteGabIndex);
 
 // write a gab
 app.post('/gab', gabController.postGab);

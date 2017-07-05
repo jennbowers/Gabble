@@ -18,11 +18,18 @@
     <div id="{{id}}" class="gab">
       <p>{{users.username}}</p>
       <p>{{message}}</p>
-      <a href="/{{id}}">{{numberLikes}} Likes</a>
+      <a href="/likes/{{id}}">{{numberLikes}} Likes</a>
       <span>
-        <form class="" action="/{{id}}" method="post">
-          <input type="hidden" name="{{id}}" value="{{id}}">
+        <form class="like" action="/{{id}}" method="post">
+          <input type="hidden" name="id" value="{{id}}">
           <input type="submit" name="like" value="Like">
+        </form>
+      </span>
+      <!-- If user_id === req.session.id then make this visible -->
+      <span>
+        <form class="delete" action="/delete/{{id}}" method="post">
+          <input type="hidden" name="{{id}}" value="{{id}}">
+          <input type="submit" name="delete" value="Delete">
         </form>
       </span>
     </div>

@@ -26,7 +26,7 @@ module.exports = {
         , sessionName: req.session.username
         , numberLikes: function() {
           models.Like.findAll(
-            { where: {gab_id: req.body.hidden} }
+            { where: {gab_id: req.body.id} }
           ).then (function(likes) {
             var numLikes = likes.length;
             console.log(numLikes);
@@ -45,5 +45,26 @@ module.exports = {
       res.redirect('/');
     })
 
+  }
+  , deleteGabIndex: function(req, res) {
+    // if (req.session.user_id == models.User.id){
+    //   models.Gab.destroy(
+    //   {
+    //   where: { id: req.params.id }
+    //   }
+    // )} else {
+    //   return;
+    // }
+    models.Like.destroy({
+      where: { gab_id: req.params.id}
+    }).then(function(){
+      models.Gab.destroy(
+      {
+      where: { id: req.params.id }
+    }).then(function() {
+      res.redirect('/');
+    });
+
+    });
   }
 };
