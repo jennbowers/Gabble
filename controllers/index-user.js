@@ -19,23 +19,29 @@ module.exports = {
           model: models.Like,
           as: 'likes'
         }
-      ]
+      ],
+      order: [['createdAt', 'DESC']]
     }).then(function(gab){
       var context = {
         model: gab
         , sessionName: req.session.username
-        , numberLikes: function() {
-          models.Like.findAll(
-            { where: {gab_id: req.body.id} }
-          ).then (function(likes) {
-            var numLikes = likes.length;
-            console.log(numLikes);
-            return numLikes;
-          })
-        }
-      };
-      res.render('index', context);
-    });
+        // , numberLikes: function() {
+        //   models.Like.findAll({where: {gab_id: req.params.id}}).then(function(likes) {
+        //     var numLikes = likes.length;
+        //       console.log(numLikes);
+        //       return numLikes;
+        //   })
+          // models.Like.findAll(
+          //   { where: {gab_id: req.body.id} }
+          // ).then (function(likes) {
+          //   var numLikes = likes.length;
+          //   console.log(numLikes);
+          //   return numLikes;
+          // })
+        };
+        res.render('index', context);
+      });
+    // });
   }
   , clickLikeIndex: function(req, res) {
     models.Like.create({

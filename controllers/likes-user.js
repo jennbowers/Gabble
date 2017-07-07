@@ -12,13 +12,19 @@ module.exports = {
     res.render('likes', {});
   }
   , renderGabLikes: function(req, res) {
-    var context = {};
-    for (var i = 0; i < models.Gab.length; i++) {
-      context = models.Gab[i];
-      if (models.Gab.id == req.params.id) {
-        break;
-      }
-    }
-    res.render('likes', context);
+    models.Gab.findOne({include: [{
+        model: models.User,
+        as: 'users'
+      } ,
+      {
+        model: models.Like,
+        as: 'likes'
+      }]
+    }, {where: {id: req.params.id}}).then(function(gab) {
+      var context = {
+        model:gab
+      };
+      res.render('likes', context);
+    });
   }
 };

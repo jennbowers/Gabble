@@ -58,7 +58,7 @@ app.get('/welcome', welcomeController.renderWelcome);
 app.get('/gab', backToLogin, gabController.renderGab);
 
 // get and render the page with a gab that shows all it's likes
-app.get('/likes/:id', backToLogin, likesController.renderGabLikes);
+app.get('/like/:id', backToLogin, likesController.renderGabLikes);
 
 // post and sign up and send user info to database
 app.post('/signup', welcomeController.signupWelcome);

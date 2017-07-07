@@ -7,7 +7,16 @@
   <body>
     <h1>likes</h1>
     <div class="gab">
-      <p>{{Gab.message}}</p>
+      {{#model}}
+      <h3>{{users.username}}: {{message}}</h3>
+      <p>Liked By:</p>
+      <ul>
+        {{#likes.user_id}}
+        <li>{{.}}</li>
+        {{/likes.user_id}}
+      </ul>
+
+      {{/model}}
     </div>
   </body>
 </html>
