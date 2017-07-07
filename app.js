@@ -57,23 +57,23 @@ app.get('/welcome', welcomeController.renderWelcome);
 // get and render the create a gab page
 app.get('/gab', backToLogin, gabController.renderGab);
 
+// write a gab
+app.post('/gab', backToLogin, gabController.postGab);
+
 // get and render the page with a gab that shows all it's likes
 app.get('/like/:id', backToLogin, likesController.renderGabLikes);
 
-// post and sign up and send user info to database
+// sign up and send user info to database
 app.post('/signup', welcomeController.signupWelcome);
 
-// post and sign into account
+// sign into account
 app.post('/signin', welcomeController.signinWelcome);
 
-// post and like a gab
+// like a gab
 app.post('/:id', backToLogin, indexController.clickLikeIndex);
 
-// post and delete gab if you are the user who posted it
+// delete gab if you are the user who posted it
 app.post('/delete/:id', backToLogin, indexController.deleteGabIndex);
-
-// write a gab
-app.post('/gab', gabController.postGab);
 
 app.listen(3000, function(){
   console.log('Successfully initiated express application');

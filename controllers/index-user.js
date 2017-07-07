@@ -7,6 +7,11 @@ const expressValidator = require('express-validator');
 const session = require('express-session');
 const models = require('../models');
 
+const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
 module.exports = {
   renderIndex: function(req, res) {
     models.Gab.findAll({
@@ -14,12 +19,7 @@ module.exports = {
         {
           model: models.User,
           as: 'users'
-        } ,
-        {
-          model: models.Like,
-          as: 'likes'
-        }
-      ],
+        }],
       order: [['createdAt', 'DESC']]
     }).then(function(gab){
       var context = {
@@ -44,29 +44,27 @@ module.exports = {
     // });
   }
   , clickLikeIndex: function(req, res) {
-    models.Like.create({
-      user_id: req.session.userId
-      , gab_id: req.params.id
-    }).then(function(likeGab) {
+    console.log('wrong working');
+    models.Gab.findOne(
+      {where: {id: req.params.id},
+      include: [{
+        model: models.User,
+        as: 'users'
+      }],
+    }).then(function(gab) {
+      gab.setUserLikes(req.session.userId);
       res.redirect('/');
     })
 
   }
   , deleteGabIndex: function(req, res) {
-    // if (req.session.user_id == models.User.id){
-    //   models.Gab.destroy(
-    //   {
-    //   where: { id: req.params.id }
-    //   }
-    // )} else {
-    //   return;
-    // }
-    models.Like.destroy({
-      where: { gab_id: req.params.id}
+    models.userGabs.destroy({
+      // USE AND STATEMENT IN WHERE FOR USER ID AS WELL
+      where: { gab_id: req.params.id, user_id: req.session.userId}
     }).then(function(){
       models.Gab.destroy(
       {
-      where: { id: req.params.id }
+      where: { id: req.params.id, user_id: req.session.userId}
     }).then(function() {
       res.redirect('/');
     });

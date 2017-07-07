@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 
   User.associate = function(models) {
     User.hasMany(models.Gab, {as: 'messages', foreignKey: 'user_id'});
-    User.belongsToMany(models.Like, {as: 'users', through: 'Likes', foreignKey: 'user_id'});
+    User.belongsToMany(models.Gab, {as: 'GabLikes', through: 'userGabs', foreignKey: 'user_id'});
   };
 
 

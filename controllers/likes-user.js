@@ -1,10 +1,3 @@
-const express = require('express');
-const mustacheExpress = require('mustache-express');
-const bodyParser = require('body-parser');
-const parseurl = require('parseurl');
-const path = require('path');
-const expressValidator = require('express-validator');
-const session = require('express-session');
 const models = require('../models');
 
 module.exports = {
@@ -12,15 +5,14 @@ module.exports = {
     res.render('likes', {});
   }
   , renderGabLikes: function(req, res) {
-    models.Gab.findOne({include: [{
+    models.Gab.findOne({
+      where: {id: req.params.id},
+      include: [{
         model: models.User,
         as: 'users'
-      } ,
-      {
-        model: models.Like,
-        as: 'likes'
       }]
-    }, {where: {id: req.params.id}}).then(function(gab) {
+    }).then(function(gab) {
+      // console.log(gab);
       var context = {
         model:gab
       };

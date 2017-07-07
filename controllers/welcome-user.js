@@ -1,10 +1,3 @@
-const express = require('express');
-const mustacheExpress = require('mustache-express');
-const bodyParser = require('body-parser');
-const parseurl = require('parseurl');
-const path = require('path');
-const expressValidator = require('express-validator');
-const session = require('express-session');
 const models = require('../models');
 
 module.exports = {
@@ -31,7 +24,7 @@ module.exports = {
   , signinWelcome: function(req, res) {
     var signin_username = req.body.username;
     var signin_password = req.body.password;
-    // console.log(req.body.username);
+    console.log(req.body.username);
     // VALIDATE THEY ARE A REAL USER
     models.User.findOne(
       {where: {
