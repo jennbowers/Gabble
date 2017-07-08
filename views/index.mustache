@@ -26,12 +26,15 @@
         </form>
       </span>
       <!-- If user_id === req.session.id then make this visible -->
-      <span>
+      {{#showDeleteIfOwner}}
+      {{sessionId}}
+      {{/showDeleteIfOwner}}
+      <!-- <span>
         <form class="delete" action="/delete/{{id}}" method="post">
           <input type="hidden" name="{{id}}" value="{{id}}">
           <input type="submit" name="delete" value="Delete">
         </form>
-      </span>
+      </span> -->
     </div>
     {{/model}}
   </body>

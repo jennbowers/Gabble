@@ -5,6 +5,7 @@ module.exports = {
     res.render('likes', {});
   }
   , renderGabLikes: function(req, res) {
+    console.log('working');
     models.Gab.findOne({
       where: {id: req.params.id},
       include: [{
@@ -12,7 +13,7 @@ module.exports = {
         as: 'users'
       }]
     }).then(function(gab) {
-      // console.log(gab);
+      console.log(gab);
       var context = {
         model:gab
       };

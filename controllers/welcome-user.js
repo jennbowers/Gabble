@@ -35,6 +35,7 @@ module.exports = {
         req.session.username = user.username;
         req.session.userId = user.id;
         console.log('sign in', req.session.username);
+        console.log('user id', req.session.userId);
         res.redirect('/');
       });
   }

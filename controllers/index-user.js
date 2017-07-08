@@ -25,6 +25,7 @@ module.exports = {
       var context = {
         model: gab
         , sessionName: req.session.username
+        , sessionId: req.session.userId
         // , numberLikes: function() {
         //   models.Like.findAll({where: {gab_id: req.params.id}}).then(function(likes) {
         //     var numLikes = likes.length;
@@ -58,17 +59,41 @@ module.exports = {
 
   }
   , deleteGabIndex: function(req, res) {
-    models.userGabs.destroy({
-      // USE AND STATEMENT IN WHERE FOR USER ID AS WELL
-      where: { gab_id: req.params.id, user_id: req.session.userId}
-    }).then(function(){
-      models.Gab.destroy(
-      {
-      where: { id: req.params.id, user_id: req.session.userId}
-    }).then(function() {
-      res.redirect('/');
-    });
-
-    });
+      // models.User.findOne({
+      //   where: {id: req.session.userId}
+      // }).then(function(user) {
+      //   console.log(user);
+      //   user.getGabLikes({
+      //     where: {id: req.params.id}
+      //   }).then(function(gab) {
+      //     console.log(gab);
+      //     gab.remove();
+      //     res.redirect('/');
+      //     });
+      //   });
+      // }
+      // models.Gab.findOne({
+      //   where: {id: req.params.id, user_id: req.session.userId}
+      // }).then(function(gab) {
+      //   console.log(gab);
+      //   gab.getUserLikes({
+      //     where: {gab_id: req.params.id}
+      //   }).then(function(gabLikes) {
+      //     console.log(gabLikes);
+      //   })
+      // });
+      // models.Gab.userGabs.destroy({
+      //   where: {gab_id: req.params.id, user_id: req.session.userId}
+      // }).then(function() {
+      console.log(models.Gab);
+        models.Gab.destroy(
+        {
+        where: { id: req.params.id, user_id: req.session.userId}
+      }).then(function() {
+        res.redirect('/');
+      });
+    // });
   }
+
+
 };
