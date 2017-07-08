@@ -26,6 +26,7 @@ module.exports = {
         model: gab
         , sessionName: req.session.username
         , sessionId: req.session.userId
+
         // , numberLikes: function() {
         //   models.Like.findAll({where: {gab_id: req.params.id}}).then(function(likes) {
         //     var numLikes = likes.length;
@@ -39,6 +40,21 @@ module.exports = {
           //   console.log(numLikes);
           //   return numLikes;
           // })
+
+
+          // Project.findAndCountAll({
+          //    where: {
+          //       title: {
+          //         $like: 'foo%'
+          //       }
+          //    },
+          //    offset: 10,
+          //    limit: 2
+          // })
+          // .then(result => {
+          //   console.log(result.count);
+          //   console.log(result.rows);
+          // });
         };
         res.render('index', context);
       });
@@ -53,7 +69,7 @@ module.exports = {
         as: 'users'
       }],
     }).then(function(gab) {
-      gab.setUserLikes(req.session.userId);
+      gab.addUserLikes(req.session.userId);
       res.redirect('/');
     })
 
