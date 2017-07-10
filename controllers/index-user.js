@@ -14,48 +14,23 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 module.exports = {
   renderIndex: function(req, res) {
+    var context = {
+      loggedIn: true,
+      name: req.session.username,
+      signedIn: true,
+      loggedInUser: req.session.userId,
+      modelArray:[]
+    };
     models.Gab.findAll({
       include: [
         {
           model: models.User,
           as: 'users'
-        }],
+        }, 'UserLikes'],
       order: [['createdAt', 'DESC']]
-    }).then(function(gab){
-      var context = {
-        model: gab
-        , sessionName: req.session.username
-        , sessionId: req.session.userId
-
-        // , numberLikes: function() {
-        //   models.Like.findAll({where: {gab_id: req.params.id}}).then(function(likes) {
-        //     var numLikes = likes.length;
-        //       console.log(numLikes);
-        //       return numLikes;
-        //   })
-          // models.Like.findAll(
-          //   { where: {gab_id: req.body.id} }
-          // ).then (function(likes) {
-          //   var numLikes = likes.length;
-          //   console.log(numLikes);
-          //   return numLikes;
-          // })
-
-
-          // Project.findAndCountAll({
-          //    where: {
-          //       title: {
-          //         $like: 'foo%'
-          //       }
-          //    },
-          //    offset: 10,
-          //    limit: 2
-          // })
-          // .then(result => {
-          //   console.log(result.count);
-          //   console.log(result.rows);
-          // });
-        };
+    }).then(function(gabs){
+      context.model = gabs;
+      console.log(context.modelArray);
         res.render('index', context);
       });
     // });
@@ -89,19 +64,19 @@ module.exports = {
       //   });
       // }
       // models.Gab.findOne({
-      //   where: {id: req.params.id, user_id: req.session.userId}
+      //   where: {id: Number(req.params.id), user_id: req.session.userId}
       // }).then(function(gab) {
       //   console.log(gab);
       //   gab.getUserLikes({
       //     where: {gab_id: req.params.id}
-      //   }).then(function(gabLikes) {
-      //     console.log(gabLikes);
-      //   })
+      //   }).then(function(newGab) {
+      //     console.log(newGab);
+      //   });
       // });
       // models.Gab.userGabs.destroy({
       //   where: {gab_id: req.params.id, user_id: req.session.userId}
       // }).then(function() {
-      console.log(models.Gab);
+      // console.log(models.Gab);
         models.Gab.destroy(
         {
         where: { id: req.params.id, user_id: req.session.userId}

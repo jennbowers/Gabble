@@ -5,16 +5,30 @@
     <title></title>
   </head>
   <body>
+    <header>
+      <nav>
+        <a href="/">Gabble</a>
+        <a href="/gab">Create a Gab</a>
+        <a href="#">Logged in as {{name}}</a>
+        <a href="/welcome">Sign Out</a>
+      </nav>
+    </header>
     <h1>likes</h1>
     <div class="gab">
       {{#model}}
       <h3>{{users.username}}: {{message}}</h3>
+      <p>{{createdAt}}</p>
       <p>Liked By:</p>
-      <ul>
-        <li></li>
-      </ul>
-
       {{/model}}
+      {{#likes}}
+      <ul>
+        <li>{{.}}</li>
+      </ul>
+      {{/likes}}
+      {{^likes}}
+      <p>No likes yet</p>
+      {{/likes}}
+
     </div>
   </body>
 </html>

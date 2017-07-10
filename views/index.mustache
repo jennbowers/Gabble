@@ -9,7 +9,7 @@
       <nav>
         <a href="/">Gabble</a>
         <a href="/gab">Create a Gab</a>
-        <a href="#">Logged in as {{sessionName}}</a>
+        <a href="#">Logged in as {{name}}</a>
         <a href="/welcome">Sign Out</a>
       </nav>
     </header>
@@ -18,7 +18,12 @@
     <div id="{{id}}" class="gab">
       <p>{{users.username}}</p>
       <p>{{message}}</p>
-      <a href="/like/{{id}}">{{numberLikes}} Likes</a>
+      {{#UserLikes.length}}
+      <a href="/like/{{id}}">Likes: {{.}}</a>
+      {{/UserLikes.length}}
+      {{^UserLikes.length}}
+      <a href="/like/{{id}}">No Likes Yet</a>
+      {{/UserLikes.length}}
       <span>
         <form class="like" action="/{{id}}" method="post">
           <input type="hidden" name="id" value="{{id}}">
@@ -27,14 +32,8 @@
       </span>
       <!-- If user_id === req.session.id then make this visible -->
       {{#showDeleteIfOwner}}
-      {{sessionId}}
+      {{loggedInUser}}
       {{/showDeleteIfOwner}}
-      <!-- <span>
-        <form class="delete" action="/delete/{{id}}" method="post">
-          <input type="hidden" name="{{id}}" value="{{id}}">
-          <input type="submit" name="delete" value="Delete">
-        </form>
-      </span> -->
     </div>
     {{/model}}
   </body>
