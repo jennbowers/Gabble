@@ -50,40 +50,12 @@ module.exports = {
 
   }
   , deleteGabIndex: function(req, res) {
-      // models.User.findOne({
-      //   where: {id: req.session.userId}
-      // }).then(function(user) {
-      //   console.log(user);
-      //   user.getGabLikes({
-      //     where: {id: req.params.id}
-      //   }).then(function(gab) {
-      //     console.log(gab);
-      //     gab.remove();
-      //     res.redirect('/');
-      //     });
-      //   });
-      // }
-      // models.Gab.findOne({
-      //   where: {id: Number(req.params.id), user_id: req.session.userId}
-      // }).then(function(gab) {
-      //   console.log(gab);
-      //   gab.getUserLikes({
-      //     where: {gab_id: req.params.id}
-      //   }).then(function(newGab) {
-      //     console.log(newGab);
-      //   });
-      // });
-      // models.Gab.userGabs.destroy({
-      //   where: {gab_id: req.params.id, user_id: req.session.userId}
-      // }).then(function() {
-      // console.log(models.Gab);
         models.Gab.destroy(
         {
         where: { id: req.params.id, user_id: req.session.userId}
       }).then(function() {
         res.redirect('/');
       });
-    // });
   }
 
 

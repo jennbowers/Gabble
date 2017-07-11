@@ -21,6 +21,9 @@
         <input type="password" name="password" placeholder="Password">
         <input type="submit" name="" value="Sign In">
       </form>
+      {{#msg}}
+      <p>{{.}}</p>
+      {{/msg}}
     </div>
   </body>
 </html>
